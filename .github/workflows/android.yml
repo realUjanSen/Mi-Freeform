@@ -29,6 +29,13 @@ jobs:
           https://raw.githubusercontent.com/bywhat/XposedBridgeApi/2e1a7ae92d57afd6dad54cf89ca7120f8213a0ea/XposedBridgeAPI-89.jar \
           --output app/libs/XposedBridgeAPI-89.jar
         echo "9c44a0627fef8c9b184ce69bf4a4840ffe1bff08626fcff43d9cb6985c947c42  app/libs/XposedBridgeAPI-89.jar" | sha256sum --check
+    - name: Build MagicLibrary dependency
+      run: |
+        git clone --depth 1 https://github.com/Kr328/MagicLibrary.git "$RUNNER_TEMP/MagicLibrary"
+        git -C "$RUNNER_TEMP/MagicLibrary" fetch --depth 1 origin 7d609ae83036c0d10b567f21df34b2f64b32d16a
+        git -C "$RUNNER_TEMP/MagicLibrary" checkout 7d609ae83036c0d10b567f21df34b2f64b32d16a
+        chmod +x "$RUNNER_TEMP/MagicLibrary/gradlew"
+        "$RUNNER_TEMP/MagicLibrary/gradlew" -p "$RUNNER_TEMP/MagicLibrary" publishToMavenLocal
     - name: Build ZygoteLoader dependencies
       run: |
         git clone --depth 1 --branch 3.1 https://github.com/Kr328/ZygoteLoader.git "$RUNNER_TEMP/ZygoteLoader"
