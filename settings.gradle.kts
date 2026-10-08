@@ -2,6 +2,13 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "com.github.kr328.gradle.zygote") {
+                useModule("com.github.kr328.gradle.zygote:gradle-plugin:${requested.version}")
+            }
+        }
+    }
     repositories {
         gradlePluginPortal()
         google()
