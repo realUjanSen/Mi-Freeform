@@ -22,5 +22,10 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+    - name: Build ZygoteLoader dependencies
+      run: |
+        git clone --depth 1 --branch 3.1 https://github.com/Kr328/ZygoteLoader.git "$RUNNER_TEMP/ZygoteLoader"
+        chmod +x "$RUNNER_TEMP/ZygoteLoader/gradlew"
+        "$RUNNER_TEMP/ZygoteLoader/gradlew" -p "$RUNNER_TEMP/ZygoteLoader" publishToMavenLocal
     - name: Build with Gradle
       run: ./gradlew build
